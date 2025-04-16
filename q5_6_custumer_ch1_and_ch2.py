@@ -74,6 +74,12 @@ class Account(ABC):
         raise TypeError("Only numeric values can be added to an account.")
     def __str__(self):
         return f"{self.number} : {self.balance:.2f}"
+    
+    def show_account_balance(self) -> int | float:
+        return self.balance
+    
+    def show_transactions(self) -> list:
+        return self._transactions
 
 # hesab pas andaz
 class SavingAccount(Account):
@@ -240,6 +246,16 @@ class Customer:
             info += f"  - {acc}\n"
         return info.strip()
     
+    def get_balance(self, acc_type):
+        if acc_type in self.accounts:
+            return self.accounts[acc_type].show_account_balance()
+        raise ValueError("Account type not found.")
+    
+    def get_transactions(self, acc_type):
+        if acc_type in self.accounts:
+            return self.accounts[acc_type].show_transactions()
+        raise ValueError("Account type not found.")
+    
 
 # تست عملکرد:
 c1 = Customer("Ali", 1234)
@@ -261,3 +277,6 @@ if c1.accounts["S"] < c2.accounts["S"]:
     print("Customer 1's saving account has less balance than Customer 2's saving account.")
 else:
     print("Customer 2's saving account has less balance than Customer 1's saving account.")
+    
+print(c1.get_balance("S"))
+print(c1.get_transactions("S"))
