@@ -246,12 +246,12 @@ class Customer:
             info += f"  - {acc}\n"
         return info.strip()
     
-    def get_balance(self, acc_type):
+    def get_balance(self, acc_type) -> int | float:
         if acc_type in self.accounts:
             return self.accounts[acc_type].show_account_balance()
         raise ValueError("Account type not found.")
     
-    def get_transactions(self, acc_type):
+    def get_transactions(self, acc_type) -> list:
         if acc_type in self.accounts:
             return self.accounts[acc_type].show_transactions()
         raise ValueError("Account type not found.")
